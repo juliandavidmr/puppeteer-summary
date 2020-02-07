@@ -126,7 +126,7 @@ mkdir my-test-project && cd ./my-test-project && npm init -y
 npm i chai cucumber cucumber-html-reporter cucumber-pretty puppeteer -S
 ````
 
-#### 3) Open the project with the favorite editor and add the next script commands in package.json
+#### 3) Open the project with the favorite editor and replace the next script commands in `package.json`
 
 ````json
 "scripts": {
@@ -178,6 +178,55 @@ npm run test:e2e
 
 ````javascript
     Given I run the first step using the text 'Hello world'
+````
+
+### Steps to add Puppeteer in the project of tests
+
+#### 1) In `.\features\my_first.feature`, Include new step in the same scenario
+
+````javascript
+Given I write the url of portal 'https://www.google.com/'
+````
+
+#### 2) Create `.\features\steps\browser_open.step.js` file and include the next step definition
+
+````javascript
+const {Then} = require('cucumber');
+const {expect} = require('chai');
+Then('I run the first step using the text {string}', {timeout: 20 * 1000}, async (textValue) => {
+    // console.log('textValue parameter', textValue);
+    await expect(textValue).to.have.string('World');
+});
+````
+
+#### 3) Now run the test and verify that chromium browser is opened
+
+````bash
+npm run test:e2e
+````
+
+#### 4) In `.\features\my_first.feature`, Include other step in the same scenario
+
+````text
+ Then I close the browser
+````
+
+#### 5) Create `.\features\steps\browser_close.step.js` file and include the step definition
+
+````javascript
+const {Then} = require('cucumber');
+const {expect} = require('chai');
+
+Then('I close the browser', {timeout: 20 * 1000}, async () => {
+    await expect(await global.testContext.page.waitForSelector("body"));
+    await global.testContext.browser.close();
+});
+````
+
+#### 6) Run the test again
+
+````bash
+npm run test:e2e
 ````
 
 ----
