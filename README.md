@@ -25,18 +25,19 @@
 
 > Base: `const puppeteer = require('puppeteer')`
 
-| Function                               | Description                                  |
-|----------------------------------------|----------------------------------------------|
-| `puppeteer.launch({ headless:false })` |                                              |
+| Function                               | Description                                                  |
+|----------------------------------------|--------------------------------------------------------------|
+| `puppeteer.launch({ headless:false })` | Promise which resolves to browser instance. [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#puppeteerlaunchoptions)  |
 
 #### `Browser`
 
 > Base: `const browser = await puppeteer.launch()`
 
-| Function                                     | Description                                    |
-| -------------------------------------------- | ---------------------------------------------- |
-| `browser.createIncognitoBrowserContext()`    | Creates a new browser context                  |
-| `browser.close()`                            | Closes the browser with the default context    |
+| Function                                     | Description                                                                 |
+| -------------------------------------------- | --------------------------------------------------------------------------- |
+| `browser.newPage()`                          | Create a new Page object. The Page is created in a default browser context. |
+| `browser.createIncognitoBrowserContext()`    | Creates a new browser context.                                              |
+| `browser.close()`                            | Closes the browser with the default context.                                |
 
 #### `Page`
 
@@ -47,6 +48,8 @@
 | `page.setViewport({ width: 600, height: 400 })`    | [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagesetviewportviewport)            |
 | `page.goto('https://website.com')`                 | [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagegotourl-options)            |
 | `page.hover('button#exampleId')`                   | [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagehoverselector) |
+| `page.focus('input#name')`                         | Focuses on the selector passed as parameter. |
+| `page.type('input#name', 'Example text')`          | Types into a selector that identifies a form element.  |
 | `page.waitForSelector('body')`                     | Wait for the selector to appear in page. [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagewaitforselectorselector-options)    |
 | `page.screenshot({path: 'screenshot.png'})`        | Promise which resolves to buffer or a base64 string (depending on the value of encoding) with captured screenshot. [Docs](https://github.com/puppeteer/puppeteer/blob/master/docs/api.md#pagescreenshotoptions) |
 | `page.emulate(puppeteer.devices['iPhone X'])`      | Emulates given device metrics and user agent, see [list of devices here](https://github.com/GoogleChrome/puppeteer/blob/master/lib/DeviceDescriptors.js) |
@@ -114,3 +117,4 @@ async function run() {
 - https://github.com/sweekson/puppeteer-samples
 - https://flaviocopes.com/puppeteer
 - https://nitayneeman.com/posts/getting-to-know-puppeteer-using-practical-examples/
+- http://thecodebarbarian.com/control-chrome-from-node-js-with-puppeteer.html
