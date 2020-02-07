@@ -7,6 +7,7 @@
     - [Puppeteer documentation](https://pptr.dev)
     - [Awesome puppeteer](https://github.com/transitive-bullshit/awesome-puppeteer)
     - [Puppeteer Firefox](https://github.com/puppeteer/puppeteer/tree/master/experimental/puppeteer-firefox)
+    - [Puppeteer + Cucumber :star2:](#cucumberpuppeteer)
 
 ## Puppeteer
 
@@ -108,7 +109,76 @@ async function run() {
     await browser.close();
 }
 ```
+<a name="cucumberpuppeteer"></a>
+## Cucumber + Puppeteer
 
+### Steps to create a new project of tests
+
+#### 1) Create Basic Project
+
+````bash
+mkdir my-test-project && cd ./my-test-project && npm init -y
+````
+
+#### 2) Add basic dependencies
+
+````bash
+npm i chai cucumber cucumber-html-reporter cucumber-pretty puppeteer -S
+````
+
+#### 3) Open the project with the favorite editor and add the next script commands in package.json
+
+````json
+"scripts": {
+    "test:e2e": "node ./node_modules/cucumber/bin/cucumber-js -f node_modules/cucumber-pretty"  
+}
+````
+
+#### 4) Now run the test and verify that there are no scenarios yet
+
+````bash
+npm run test:e2e
+````
+
+#### 5) Create the basic structure of features folder
+
+````bash
+mkdir .\features\steps && echo Feature: First feature > .\features\my_first.feature && echo // Step definition > .\features\steps\hello_world.step.js
+````
+
+#### 6) In .\features\my_first.feature file include the first scenario
+````javascript
+  Scenario: Test of my first scenario
+    Given I run the first step using the text 'Hello W'
+````
+#### 7) Now run the test and verify that it fails
+
+````bash
+npm run test:e2e
+````
+
+#### 8) In .\features\steps\hello_world.step.js file include the first step definition
+
+````javascript
+const {Then} = require('cucumber');
+const {expect} = require('chai');
+Then('I run the first step using the text {string}', {timeout: 20 * 1000}, async (textValue) => {
+    // console.log('textValue parameter', textValue);
+    await expect(textValue).to.have.string('World');
+});
+````
+
+#### 9) Now run the test and verify that it fails
+
+````bash
+npm run test:e2e
+````
+
+#### 10) In .\features\my_first.feature file fix the Step call
+
+````javascript
+    Given I run the first step using the text 'Hello world'
+````
 
 ----
 
