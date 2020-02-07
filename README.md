@@ -160,9 +160,9 @@ npm run test:e2e
 #### 8) In .\features\steps\hello_world.step.js file include the first step definition
 
 ````javascript
-const {Then} = require('cucumber');
+const {Given} = require('cucumber');
 const {expect} = require('chai');
-Then('I run the first step using the text {string}', {timeout: 20 * 1000}, async (textValue) => {
+Given('I run the first step using the text {string}', {timeout: 20 * 1000}, async (textValue) => {
     // console.log('textValue parameter', textValue);
     await expect(textValue).to.have.string('World');
 });
